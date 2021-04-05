@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import image from './crypto.png';
+import Form from './components/Form';
 
 const Container = styled.div`
   max-width: 900px;
@@ -45,6 +46,8 @@ function App() {
       </div>
       <div>
         <Heading>Crypto prices in seconds</Heading>
+
+        <Form />
       </div>
     </Container>
   );
