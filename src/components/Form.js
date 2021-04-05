@@ -25,6 +25,7 @@ const Button = styled.input`
 const Form = () => {
 
     const [ cryptoList, setCryptoList ] = useState([]);
+    const [ error, setError ] = useState(false);
 
     const COINS = [
         { code: 'GBP', name: 'Pound Sterling' },
@@ -48,8 +49,25 @@ const Form = () => {
         callAPI();
     }, []);
 
+    // when user click submit
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        // validate if user has selected currency and crypto
+        if(coin === '' || cryptoCoin === '') {
+            setError(true);
+            return;
+        }
+
+        //send data to main component
+        setError(false);
+    }
+
     return ( 
-        <form>
+        <form
+            onSubmit={handleSubmit}
+        >
+            { error? "There's an error" : null }
             <SelectCoin />
 
             <SelectCrypto />
