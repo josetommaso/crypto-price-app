@@ -1,4 +1,25 @@
 import React, { Fragment, useState } from 'react';
+import styled from '@emotion/styled';
+
+const Label = styled.label`
+    font-family: 'Bebas Neue', cursive;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 2.4rem;
+    margin-top: 2rem;
+    display: block;
+`;
+
+const SelectInput = styled.select`
+    width: 100%;
+    display: block;
+    padding: 1rem;
+    -webkit-appearance: none;
+    border-radius: 10px;
+    border: none;
+    font-size: 1.2rem;
+`;
 
 const useCoin = (label, originalState, options) => {
 
@@ -8,8 +29,8 @@ const useCoin = (label, originalState, options) => {
 
     const Select = () => (
         <Fragment>
-            <label>{label}</label>
-            <select
+            <Label>{label}</Label>
+            <SelectInput
                 onChange={ e => updateState(e.target.value) }
                 value={ state }
             >
@@ -17,7 +38,7 @@ const useCoin = (label, originalState, options) => {
                 {options.map(option => (
                     <option key={option.code} value={option.code}>{option.name}</option>
                 ))}
-            </select>
+            </SelectInput>
         </Fragment>
     );
 
