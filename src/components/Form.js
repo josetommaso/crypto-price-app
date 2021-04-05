@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import useCoin from '../hooks/useCoin';
+import useCoin from '../hooks/useCurrency';
 import useCrypto from '../hooks/useCrypto';
 import Error from './Error'
 import styled from '@emotion/styled';
@@ -23,18 +23,18 @@ const Button = styled.input`
     }
 `;
 
-const Form = () => {
+const Form = ({setCripto, setCurrency}) => {
 
     const [ cryptoList, setCryptoList ] = useState([]);
     const [ error, setError ] = useState(false);
 
-    const COINS = [
+    const CURRENCY = [
         { code: 'GBP', name: 'Pound Sterling' },
         { code: 'USD', name: 'US Dollar' },
         { code: 'EUR', name: 'Euro' }
     ]
 
-    const [ coin, SelectCoin ] = useCoin('Choose currency', '', COINS);
+    const [ currency, SelectCoin ] = useCoin('Choose currency', '', CURRENCY);
 
     const [cryptoCoin, SelectCrypto] = useCrypto('Choose crypto', '', cryptoList);
 
@@ -55,13 +55,15 @@ const Form = () => {
         e.preventDefault();
 
         // validate if user has selected currency and crypto
-        if(coin === '' || cryptoCoin === '') {
+        if(currency === '' || cryptoCoin === '') {
             setError(true);
             return;
         }
 
         //send data to main component
         setError(false);
+        setCurrency(currency);
+        setCripto(cryptoCoin)
     }
 
     return ( 

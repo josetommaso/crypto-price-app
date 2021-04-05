@@ -1,4 +1,6 @@
-import styled from '@emotion/styled'
+import React, { useState, useEffect } from 'react';
+import styled from '@emotion/styled';
+import Axios from 'axios'
 import image from './crypto.png';
 import Form from './components/Form';
 
@@ -36,6 +38,27 @@ const Heading = styled.h1`
 `;
 
 function App() {
+
+  const [ currency, setCurrency ] = useState('');
+  const [ cripto, setCripto ] = useState('');
+
+  useEffect(() => {
+    const sendRequest = async () => {
+      // block first execution
+      if(currency === '') return;
+
+      // call API to get crypto price
+      const url = `https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${cripto}&tsyms=${currency}`;
+
+      const response = await Axios.get(url);
+
+      console.log(response.data.DISPLAY[cripto][currency]);
+    }
+
+    sendRequest();
+
+  }, [currency, cripto])
+
   return (
     <Container>
       <div>
@@ -47,7 +70,10 @@ function App() {
       <div>
         <Heading>Crypto prices in seconds</Heading>
 
-        <Form />
+        <Form 
+          setCurrency={setCurrency}
+          setCripto={setCripto}
+        />
       </div>
     </Container>
   );
