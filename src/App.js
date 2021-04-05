@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import Axios from 'axios'
 import image from './crypto.png';
 import Form from './components/Form';
+import Price from './components/Price';
 
 const Container = styled.div`
   max-width: 900px;
@@ -41,7 +42,7 @@ function App() {
 
   const [ currency, setCurrency ] = useState('');
   const [ cripto, setCripto ] = useState('');
-
+  const [ result, setResult ] = useState({});
   useEffect(() => {
     const sendRequest = async () => {
       // block first execution
@@ -52,7 +53,7 @@ function App() {
 
       const response = await Axios.get(url);
 
-      console.log(response.data.DISPLAY[cripto][currency]);
+      setResult(response.data.DISPLAY[cripto][currency]);
     }
 
     sendRequest();
@@ -73,6 +74,9 @@ function App() {
         <Form 
           setCurrency={setCurrency}
           setCripto={setCripto}
+        />
+        <Price
+          result={result}
         />
       </div>
     </Container>
