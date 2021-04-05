@@ -11,7 +11,7 @@ const Label = styled.label`
     display: block;
 `;
 
-const SelectCoin = styled.select`
+const SelectCrypto = styled.select`
     width: 100%;
     display: block;
     padding: 1rem;
@@ -21,7 +21,9 @@ const SelectCoin = styled.select`
     font-size: 1.2rem;
 `;
 
-const UseCoin = (label, originalState, options) => {
+const useCrypto = (label, originalState, options) => {
+
+    // console.log(options);
 
     // state of our custom hook
     const [ state, updateState ] = useState(originalState);
@@ -30,15 +32,15 @@ const UseCoin = (label, originalState, options) => {
     const Select = () => (
         <Fragment>
             <Label>{label}</Label>
-            <SelectCoin
+            <SelectCrypto
                 onChange={ e => updateState(e.target.value) }
                 value={ state }
             >
                 <option value="">-- Select --</option>
                 {options.map(option => (
-                    <option key={option.code} value={option.code}>{option.name}</option>
+                    <option key={option.CoinInfo.Id} value={option.CoinInfo.Name}>{option.CoinInfo.FullName}</option>
                 ))}
-            </SelectCoin>
+            </SelectCrypto>
         </Fragment>
     );
 
@@ -47,4 +49,4 @@ const UseCoin = (label, originalState, options) => {
 
 }
 
-export default UseCoin;
+export default useCrypto;
